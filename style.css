@@ -1,0 +1,224 @@
+:root {
+  --primary: #FF6B35;
+  --primary-light: #FF8C5A;
+  --accent: #FFD60A;
+  --dark: #0d0d12;
+  --dark-2: #16161f;
+  --card-dark: #1b1b26;
+  --light-bg: #f4f4f7;
+  --success: #2ECC71;
+}
+
+* { font-family: 'Poppins', sans-serif; }
+
+body {
+  background-color: var(--light-bg);
+}
+
+/* Navbar */
+.shopdesk-navbar {
+  background: linear-gradient(90deg, var(--dark) 0%, #23232f 100%);
+  box-shadow: 0 2px 16px rgba(255, 107, 53, 0.25);
+  border-bottom: 2px solid var(--primary);
+}
+.shopdesk-navbar .navbar-brand {
+  color: var(--accent) !important;
+  letter-spacing: 0.5px;
+}
+.shopdesk-navbar .nav-link {
+  font-weight: 500;
+  color: rgba(255,255,255,0.85) !important;
+  transition: color 0.2s ease;
+}
+.shopdesk-navbar .nav-link:hover { color: var(--primary) !important; }
+
+.role-badge {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+.role-admin { background-color: var(--accent); color: #222; }
+.role-seller { background-color: var(--primary); }
+.role-customer { background-color: rgba(255,255,255,0.2); }
+
+.btn-cart {
+  background: rgba(255, 107, 53, 0.15);
+  color: #fff;
+  border: 1px solid var(--primary);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.btn-cart:hover { background: var(--primary); color: #fff; }
+
+.btn-signup {
+  background: var(--primary);
+  color: #fff;
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 0 12px rgba(255,107,53,0.5);
+}
+.btn-signup:hover { background: var(--primary-light); color: #fff; }
+
+/* Hero banner */
+.hero-banner {
+  position: relative;
+  background: linear-gradient(120deg, rgba(13,13,18,0.92), rgba(35,20,10,0.85)),
+              url('https://images.unsplash.com/photo-1623874106686-5be2b325c8f1?w=1400&q=70&auto=format&fit=crop') center/cover no-repeat;
+  color: #fff;
+  overflow: hidden;
+}
+.hero-banner h1 {
+  animation: fadeInUp 0.7s ease;
+}
+.hero-banner .lead {
+  animation: fadeInUp 0.9s ease;
+}
+.hero-banner .fw-bold.display-6 {
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(255,107,53,0.5);
+}
+.hero-banner .fw-bold.display-6 span {
+  color: var(--primary);
+}
+.search-input { border-radius: 20px 0 0 20px; border: none; max-width: 400px; }
+.btn-search { border-radius: 0 20px 20px 0; background: var(--primary); color: #fff; border: none; padding: 0 20px; }
+.btn-search:hover { background: var(--primary-light); color: #fff; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,53,0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(255,107,53,0); }
+}
+
+/* Chips / category filters */
+.chip {
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  color: #444;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.chip-active, .chip:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* Product cards */
+.product-card {
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: fadeIn 0.5s ease;
+  background: #fff;
+}
+.product-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 16px 32px rgba(255,107,53,0.25) !important;
+}
+.product-img {
+  height: 190px;
+  object-fit: cover;
+  width: 100%;
+  transition: transform 0.4s ease;
+}
+.product-card:hover .product-img {
+  transform: scale(1.06);
+}
+.cat-badge {
+  background: rgba(255,107,53,0.12);
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.7rem;
+}
+.price-tag {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+.btn-add-cart {
+  background: var(--primary);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s ease;
+}
+.btn-add-cart:hover {
+  background: var(--primary-light);
+  color: #fff;
+  animation: pulseGlow 1.2s infinite;
+}
+
+.btn-checkout {
+  background: linear-gradient(90deg, var(--primary), #ff8c00);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 700;
+  border: none;
+  padding: 10px 20px;
+  transition: all 0.2s ease;
+}
+.btn-checkout:hover { opacity: 0.92; color: #fff; transform: translateY(-1px); }
+
+/* Cart */
+.cart-table th { border-bottom: 2px solid #eee; font-weight: 600; color: #555; }
+.cart-thumb { width: 55px; height: 55px; object-fit: cover; }
+.cart-summary, .form-card, .order-card, .stat-card {
+  background: #fff;
+}
+.cart-summary { min-width: 320px; }
+
+/* Stat cards */
+.stat-card {
+  text-align: center;
+  border-left: 4px solid var(--primary);
+  transition: transform 0.2s ease;
+}
+.stat-card:hover { transform: translateY(-4px); }
+.stat-num { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+.stat-label { font-size: 0.8rem; color: #777; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Status badges */
+.status-badge { font-size: 0.7rem; padding: 6px 10px; border-radius: 10px; text-transform: capitalize; }
+.status-pending { background: #fff3cd; color: #856404; }
+.status-approved { background: #d4edda; color: #155724; }
+.status-rejected { background: #f8d7da; color: #721c24; }
+.status-Placed { background: #ffe4d6; color: #b34700; }
+.status-Confirmed { background: #d1ecf1; color: #0c5460; }
+.status-Shipped { background: #fce8b5; color: #7a5c00; }
+.status-OutforDelivery { background: #ffe0b2; color: #8a4b00; }
+.status-Delivered { background: #d4edda; color: #155724; }
+.status-Cancelled { background: #f8d7da; color: #721c24; }
+
+/* Role option radio cards (signup) */
+.role-option {
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.role-option:has(input:checked) {
+  border-color: var(--primary);
+  background: rgba(255,107,53,0.08);
+}
+
+/* Footer */
+.shopdesk-footer {
+  background: var(--dark);
+  color: #fff;
+}
+.shopdesk-footer .text-white-50 { color: rgba(255,255,255,0.55) !important; }

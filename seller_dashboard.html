@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Seller Dashboard - GymDesk{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+  <h3 class="fw-bold mb-0"><i class="bi bi-shop"></i> Seller Dashboard</h3>
+  <a href="{{ url_for('seller_product_add') }}" class="btn btn-checkout"><i class="bi bi-plus-circle"></i> Add Product</a>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num">{{ stats.total }}</div><div class="stat-label">Total Products</div></div></div>
+  <div class="col-6 col-md-3"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num text-warning">{{ stats.pending }}</div><div class="stat-label">Pending</div></div></div>
+  <div class="col-6 col-md-3"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num text-success">{{ stats.approved }}</div><div class="stat-label">Approved</div></div></div>
+  <div class="col-6 col-md-3"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num text-danger">{{ stats.rejected }}</div><div class="stat-label">Rejected</div></div></div>
+</div>
+
+<div class="table-responsive">
+<table class="table align-middle cart-table">
+  <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody>
+    {% for p in products %}
+    <tr>
+      <td><img src="{{ p.image or 'https://via.placeholder.com/60' }}" class="cart-thumb rounded"></td>
+      <td>{{ p.name }}</td>
+      <td>₹{{ "%.2f"|format(p.price) }}</td>
+      <td>{{ p.stock }}</td>
+      <td><span class="badge status-badge status-{{ p.status }}">{{ p.status }}</span></td>
+      <td>
+        <a href="{{ url_for('seller_product_edit', product_id=p.id) }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+        <a href="{{ url_for('seller_product_delete', product_id=p.id) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this product?')"><i class="bi bi-trash"></i></a>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="text-center text-muted py-4">No products yet. Add your first product!</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

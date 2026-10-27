@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} - GymDesk{% endblock %}
+{% block content %}
+<div class="row g-5">
+  <div class="col-md-6">
+    <img src="{{ product.image or 'https://via.placeholder.com/500x400?text=No+Image' }}" class="img-fluid rounded-4 shadow-sm" alt="{{ product.name }}">
+  </div>
+  <div class="col-md-6">
+    <span class="badge cat-badge mb-2">{{ product.category }}</span>
+    <h2 class="fw-bold">{{ product.name }}</h2>
+    <p class="text-muted">Sold by <strong>{{ product.seller.shop_name or product.seller.username }}</strong></p>
+    <h3 class="price-tag">₹{{ "%.2f"|format(product.price) }}</h3>
+    <p class="mt-3">{{ product.description }}</p>
+
+    {% if product.status != 'approved' %}
+    <div class="alert alert-warning">This product is currently <strong>{{ product.status }}</strong> and not visible to customers yet.</div>
+    {% endif %}
+
+    {% if product.stock > 0 %}
+    <p class="text-success"><i class="bi bi-check-circle"></i> In stock ({{ product.stock }} available)</p>
+    <form method="post" action="{{ url_for('cart_add', product_id=product.id) }}" class="d-flex gap-2 mt-3">
+      <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control" style="max-width:100px;">
+      <button class="btn btn-add-cart px-4" type="submit"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+    </form>
+    {% else %}
+    <p class="text-danger"><i class="bi bi-x-circle"></i> Out of stock</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

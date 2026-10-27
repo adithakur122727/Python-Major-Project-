@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Checkout - GymDesk{% endblock %}
+{% block content %}
+<h3 class="fw-bold mb-4"><i class="bi bi-truck"></i> Checkout</h3>
+<div class="row g-4">
+  <div class="col-md-7">
+    <div class="p-4 rounded-4 shadow-sm form-card">
+      <h5 class="mb-3">Delivery Details</h5>
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label">Full Address</label>
+          <textarea name="address" class="form-control" rows="3" required placeholder="House no, street, city, pincode"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Phone Number</label>
+          <input type="text" name="phone" class="form-control" required placeholder="10-digit mobile number">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Payment Method</label>
+          <input type="text" class="form-control" value="Cash on Delivery (COD)" disabled>
+        </div>
+        <button type="submit" class="btn btn-checkout w-100">Place Order <i class="bi bi-check2-circle"></i></button>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="p-4 rounded-4 shadow-sm cart-summary">
+      <h5 class="mb-3">Order Summary</h5>
+      {% for entry in items %}
+      <div class="d-flex justify-content-between small mb-2">
+        <span>{{ entry.product.name }} x {{ entry.qty }}</span>
+        <span>₹{{ "%.2f"|format(entry.subtotal) }}</span>
+      </div>
+      {% endfor %}
+      <hr>
+      <div class="d-flex justify-content-between fw-bold">
+        <span>Total</span><span>₹{{ "%.2f"|format(total) }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

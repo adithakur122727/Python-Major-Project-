@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard - GymDesk{% endblock %}
+{% block content %}
+<h3 class="fw-bold mb-4"><i class="bi bi-speedometer2"></i> Admin Dashboard</h3>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-2"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num">{{ stats.total_products }}</div><div class="stat-label">Products</div></div></div>
+  <div class="col-6 col-md-2"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num text-warning">{{ stats.pending }}</div><div class="stat-label">Pending</div></div></div>
+  <div class="col-6 col-md-2"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num text-success">{{ stats.approved }}</div><div class="stat-label">Approved</div></div></div>
+  <div class="col-6 col-md-2"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num">{{ stats.sellers }}</div><div class="stat-label">Sellers</div></div></div>
+  <div class="col-6 col-md-2"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num">{{ stats.customers }}</div><div class="stat-label">Customers</div></div></div>
+  <div class="col-6 col-md-2"><div class="stat-card p-3 rounded-4 shadow-sm"><div class="stat-num">{{ stats.orders }}</div><div class="stat-label">Orders</div></div></div>
+</div>
+
+<h5 class="fw-bold mb-3">Pending Product Approvals</h5>
+<div class="table-responsive">
+<table class="table align-middle cart-table">
+  <thead><tr><th>Image</th><th>Name</th><th>Seller</th><th>Price</th><th>Category</th><th>Actions</th></tr></thead>
+  <tbody>
+    {% for p in pending_products %}
+    <tr>
+      <td><img src="{{ p.image or 'https://via.placeholder.com/60' }}" class="cart-thumb rounded"></td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.seller.shop_name or p.seller.username }}</td>
+      <td>₹{{ "%.2f"|format(p.price) }}</td>
+      <td>{{ p.category }}</td>
+      <td>
+        <a href="{{ url_for('admin_product_action', product_id=p.id, action='approve') }}" class="btn btn-sm btn-success"><i class="bi bi-check-lg"></i> Approve</a>
+        <a href="{{ url_for('admin_product_action', product_id=p.id, action='reject') }}" class="btn btn-sm btn-outline-danger"><i class="bi bi-x-lg"></i> Reject</a>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="text-center text-muted py-4">No pending products. All caught up!</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

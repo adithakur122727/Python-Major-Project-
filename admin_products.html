@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}All Products - GymDesk{% endblock %}
+{% block content %}
+<h3 class="fw-bold mb-4"><i class="bi bi-grid"></i> All Products</h3>
+
+<div class="mb-4 d-flex flex-wrap gap-2">
+  <a href="{{ url_for('admin_products') }}" class="btn btn-sm chip {{ 'chip-active' if not status_filter else '' }}">All</a>
+  <a href="{{ url_for('admin_products', status='pending') }}" class="btn btn-sm chip {{ 'chip-active' if status_filter == 'pending' else '' }}">Pending</a>
+  <a href="{{ url_for('admin_products', status='approved') }}" class="btn btn-sm chip {{ 'chip-active' if status_filter == 'approved' else '' }}">Approved</a>
+  <a href="{{ url_for('admin_products', status='rejected') }}" class="btn btn-sm chip {{ 'chip-active' if status_filter == 'rejected' else '' }}">Rejected</a>
+</div>
+
+<div class="table-responsive">
+<table class="table align-middle cart-table">
+  <thead><tr><th>Image</th><th>Name</th><th>Seller</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody>
+    {% for p in products %}
+    <tr>
+      <td><img src="{{ p.image or 'https://via.placeholder.com/60' }}" class="cart-thumb rounded"></td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.seller.shop_name or p.seller.username }}</td>
+      <td>₹{{ "%.2f"|format(p.price) }}</td>
+      <td>{{ p.stock }}</td>
+      <td><span class="badge status-badge status-{{ p.status }}">{{ p.status }}</span></td>
+      <td>
+        {% if p.status != 'approved' %}
+        <a href="{{ url_for('admin_product_action', product_id=p.id, action='approve') }}" class="btn btn-sm btn-success"><i class="bi bi-check-lg"></i></a>
+        {% endif %}
+        {% if p.status != 'rejected' %}
+        <a href="{{ url_for('admin_product_action', product_id=p.id, action='reject') }}" class="btn btn-sm btn-outline-danger"><i class="bi bi-x-lg"></i></a>
+        {% endif %}
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7" class="text-center text-muted py-4">No products found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
